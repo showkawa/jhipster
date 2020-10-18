@@ -48,13 +48,15 @@ public class JHipsterProperties {
 
     private final Http http = new Http();
 
+    private final Database database = new Database();
+
     private final Cache cache = new Cache();
 
     private final Mail mail = new Mail();
 
     private final Security security = new Security();
 
-    private final Swagger swagger = new Swagger();
+    private final ApiDocs apiDocs = new ApiDocs();
 
     private final Metrics metrics = new Metrics();
 
@@ -88,6 +90,15 @@ public class JHipsterProperties {
      */
     public Http getHttp() {
         return http;
+    }
+
+    /**
+     * <p>Getter for the field <code>database</code>.</p>
+     *
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.Database} object.
+     */
+    public Database getDatabase() {
+        return database;
     }
 
     /**
@@ -127,12 +138,12 @@ public class JHipsterProperties {
     }
 
     /**
-     * <p>Getter for the field <code>swagger</code>.</p>
+     * <p>Getter for the field <code>api-docs</code>.</p>
      *
-     * @return a {@link io.github.jhipster.config.JHipsterProperties.Swagger} object.
+     * @return a {@link io.github.jhipster.config.JHipsterProperties.ApiDocs} object.
      */
-    public Swagger getSwagger() {
-        return swagger;
+    public ApiDocs getApiDocs() {
+        return apiDocs;
     }
 
     /**
@@ -253,6 +264,29 @@ public class JHipsterProperties {
         }
     }
 
+    public static class Database {
+
+        private final Couchbase couchbase = new Couchbase();
+
+        public Couchbase getCouchbase() {
+            return couchbase;
+        }
+
+        public static class Couchbase {
+
+            private String bucketName;
+
+            public String getBucketName() {
+                return bucketName;
+            }
+
+            public Couchbase setBucketName(String bucketName) {
+                this.bucketName = bucketName;
+                return this;
+            }
+        }
+    }
+
     public static class Cache {
 
         private final Hazelcast hazelcast = new Hazelcast();
@@ -299,10 +333,28 @@ public class JHipsterProperties {
 
             private final ManagementCenter managementCenter = new ManagementCenter();
 
+            /**
+             * In the Hazelcast v4.x, the cluster node doesn't expose
+             * configurations to connect to the management center. Setting up
+             * of this property doesn't provide any behavior and has been
+             * retained for the backward compatibility, and should be
+             * removed in the next major release of the JHipster
+             *
+             * @return a {@link io.github.jhipster.config.JHipsterProperties.Cache.Hazelcast.ManagementCenter} object.
+             */
+            @Deprecated
             public ManagementCenter getManagementCenter() {
                 return managementCenter;
             }
 
+            /**
+             * In the Hazelcast v4.x, the cluster node doesn't expose
+             * configurations to connect to the management center. Setting up
+             * of this class properties don't provide any behavior and has
+             * been retained for the backward compatibility, and should be
+             * removed in the next major release of the JHipster
+             */
+            @Deprecated
             public static class ManagementCenter {
 
                 private boolean enabled = JHipsterDefaults.Cache.Hazelcast.ManagementCenter.enabled;
@@ -862,33 +914,35 @@ public class JHipsterProperties {
         }
     }
 
-    public static class Swagger {
+    public static class ApiDocs {
 
-        private String title = JHipsterDefaults.Swagger.title;
+        private String title = JHipsterDefaults.ApiDocs.title;
 
-        private String description = JHipsterDefaults.Swagger.description;
+        private String description = JHipsterDefaults.ApiDocs.description;
 
-        private String version = JHipsterDefaults.Swagger.version;
+        private String version = JHipsterDefaults.ApiDocs.version;
 
-        private String termsOfServiceUrl = JHipsterDefaults.Swagger.termsOfServiceUrl;
+        private String termsOfServiceUrl = JHipsterDefaults.ApiDocs.termsOfServiceUrl;
 
-        private String contactName = JHipsterDefaults.Swagger.contactName;
+        private String contactName = JHipsterDefaults.ApiDocs.contactName;
 
-        private String contactUrl = JHipsterDefaults.Swagger.contactUrl;
+        private String contactUrl = JHipsterDefaults.ApiDocs.contactUrl;
 
-        private String contactEmail = JHipsterDefaults.Swagger.contactEmail;
+        private String contactEmail = JHipsterDefaults.ApiDocs.contactEmail;
 
-        private String license = JHipsterDefaults.Swagger.license;
+        private String license = JHipsterDefaults.ApiDocs.license;
 
-        private String licenseUrl = JHipsterDefaults.Swagger.licenseUrl;
+        private String licenseUrl = JHipsterDefaults.ApiDocs.licenseUrl;
 
-        private String defaultIncludePattern = JHipsterDefaults.Swagger.defaultIncludePattern;
+        private String defaultIncludePattern = JHipsterDefaults.ApiDocs.defaultIncludePattern;
 
-        private String host = JHipsterDefaults.Swagger.host;
+        private String host = JHipsterDefaults.ApiDocs.host;
 
-        private String[] protocols = JHipsterDefaults.Swagger.protocols;
+        private String[] protocols = JHipsterDefaults.ApiDocs.protocols;
 
-        private boolean useDefaultResponseMessages = JHipsterDefaults.Swagger.useDefaultResponseMessages;
+        private Server[] servers = {};
+
+        private boolean useDefaultResponseMessages = JHipsterDefaults.ApiDocs.useDefaultResponseMessages;
 
         public String getTitle() {
             return title;
@@ -986,12 +1040,50 @@ public class JHipsterProperties {
             this.protocols = protocols;
         }
 
+        public Server[] getServers() {
+            return servers;
+        }
+
+        public void setServers(final Server[] servers) {
+            this.servers = servers;
+        }
+
         public boolean isUseDefaultResponseMessages() {
             return useDefaultResponseMessages;
         }
 
         public void setUseDefaultResponseMessages(final boolean useDefaultResponseMessages) {
             this.useDefaultResponseMessages = useDefaultResponseMessages;
+        }
+
+        public static class Server {
+            private String name;
+            private String url;
+            private String description;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+
+            public void setDescription(String description) {
+                this.description = description;
+            }
         }
     }
 

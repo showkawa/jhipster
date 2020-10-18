@@ -49,11 +49,7 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
         super(filter);
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.LocalDateFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public LocalDateFilter copy() {
         return new LocalDateFilter(this);
@@ -118,26 +114,8 @@ public class LocalDateFilter extends RangeFilter<LocalDate> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE)
-    @Deprecated
-    public LocalDateFilter setGreaterOrEqualThan(LocalDate equals) {
-        super.setGreaterOrEqualThan(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE)
     public LocalDateFilter setLessThanOrEqual(LocalDate equals) {
         super.setLessThanOrEqual(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    @Deprecated
-    public LocalDateFilter setLessOrEqualThan(LocalDate equals) {
-        super.setLessOrEqualThan(equals);
         return this;
     }
 

@@ -49,11 +49,7 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
         super(filter);
     }
 
-    /**
-     * <p>copy.</p>
-     *
-     * @return a {@link io.github.jhipster.service.filter.ZonedDateTimeFilter} object.
-     */
+    /** {@inheritDoc} */
     @Override
     public ZonedDateTimeFilter copy() {
         return new ZonedDateTimeFilter(this);
@@ -118,26 +114,8 @@ public class ZonedDateTimeFilter extends RangeFilter<ZonedDateTime> {
     /** {@inheritDoc} */
     @Override
     @DateTimeFormat(iso = ISO.DATE_TIME)
-    @Deprecated
-    public ZonedDateTimeFilter setGreaterOrEqualThan(ZonedDateTime equals) {
-        super.setGreaterOrEqualThan(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
     public ZonedDateTimeFilter setLessThanOrEqual(ZonedDateTime equals) {
         super.setLessThanOrEqual(equals);
-        return this;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    @DateTimeFormat(iso = ISO.DATE_TIME)
-    @Deprecated
-    public ZonedDateTimeFilter setLessOrEqualThan(ZonedDateTime equals) {
-        super.setLessOrEqualThan(equals);
         return this;
     }
 
